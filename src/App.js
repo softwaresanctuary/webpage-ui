@@ -1,86 +1,102 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import logo from './components/logo2.png'
-import {BrowserRouter as Router,Switch,Route,Link} from "react-router-dom";
-import MainPage from './components/MainPage'
-import TeamPage from './components/TeamPage'
-import AboutPage from './components/AboutPage'
-import ContactPage from './components/ContactPage'
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Link
+} from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
-btn:{
-  marginRight:'3rem',
-  padding:'1rem',
-  color:'#f2f2f2'
-},
-bar: {
-flexGrow: 1,
-background: 'linear-gradient(45deg, #222831 40%, #393E49 95%)',
-marginBottom:'4rem',
-},
-title: {
-color:'#F0BC12',
-flexGrow: 1,
-},
-logo:{
-margin:'0 2rem',
-},
-}));
+import {
+	AppBar,
+	Box,
+	Button,
+	Toolbar,
+	Typography
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+import logo from './components/logo2.png'
+import About from './components/about'
+import Contact from './components/contact'
+import Home from './components/home'
+import Team from './components/team'
+import Footer from './components/common/footer/';
+
+const useStyles = makeStyles((theme) => (
+	{
+		root: {
+			background: '#393E49',
+			margin: 0,
+			padding: 0,
+			marginBottom: 0
+		},
+		box: {
+			marginTop: "64px",
+			color: "white",
+			background: "#393E49",
+			display: "block",
+			'&::after': {
+				content: '',
+				display: 'block',
+			}
+		},
+		btn:{
+			marginRight:'3rem',
+			padding:'1rem',
+			color:'#F2F2F2'
+		},
+		menu: {
+			flexGrow: 1,
+			background: '#393E49',
+		},
+		title: {
+			color:'#F0BC12',
+			flexGrow: 1,
+		},
+		logo:{
+			margin:'0 2rem',
+		},
+		footer: {
+			marginBottom: 0
+		}
+	}
+));
 
 export default function App() {
-  const classes = useStyles();
-
-  return (
-    <div style={{  background: 'linear-gradient(180deg, #222831 40%, #22283f 95%)'}}  className="root">
-      <React.Fragment>
-      <CssBaseline />
-      <Router>
-    <div className={classes.bar}>
-      <AppBar  position="fixed" className={classes.bar} >
-        <Toolbar>
-        <img classNAme={classes.logo} src={logo} alt="logo" className={classes.logo} />
-          
-          <Typography variant="h6" className={classes.title}>
-            SOFTWARE SANCTUARY
-          </Typography>
-          <Link to="/">
-          <Button className={classes.btn} color="inherit"> Home </Button>
-          </Link>
-          <Link to="/team">
-          <Button className={classes.btn} color="inherit"> Team </Button>
-          </Link>
-          <Link to="/contact">
-          <Button className={classes.btn} color="inherit"> Contact </Button>
-          </Link>
-          <Link to="/about">
-          <Button className={classes.btn} color="inherit"> About </Button>
-          </Link>
-        </Toolbar>
-      </AppBar>
-      <Switch>
-          <Route exact path="/" component={MainPage}>
-        
-          </Route>
-          <Route exact path="/team" component={TeamPage}>
-
-          
-          </Route>
-          <Route exact path="/contact" component={ContactPage}>
-        
-          </Route>
-          <Route path="/about" component = {AboutPage}>
-          
-          </Route>
-
-        </Switch>
-    </div>
-    </Router>
-      </React.Fragment>
-    </div>
-  );
+	const classes = useStyles();
+  	return (
+		<div className={classes.root}>
+			<Router className={classes.content}>
+				<AppBar position="fixed" className={classes.menu}>
+					<Toolbar>
+						<img classNAme={classes.logo} src={logo} alt="logo" className={classes.logo} />
+						<Typography variant="h6" className={classes.title}>
+							SOFTWARE SANCTUARY
+						</Typography>
+						<Link to="/">
+							<Button className={classes.btn} color="inherit"> Home </Button>
+						</Link>
+						<Link to="/team">
+							<Button className={classes.btn} color="inherit"> Team </Button>
+						</Link>
+						<Link to="/contact">
+							<Button className={classes.btn} color="inherit"> Contact </Button>
+						</Link>
+						<Link to="/about">
+							<Button className={classes.btn} color="inherit"> About </Button>
+						</Link>
+					</Toolbar>
+				</AppBar>
+				<Box display="flex" flex="1" justifyContent="space-around" className={classes.box}>
+					<Switch>
+						<Route exact path="/" component={Home} />
+						<Route exact path="/team" component={Team} />
+						<Route exact path="/contact" component={Contact} />			
+						<Route exact path="/about" component = {About} />
+					</Switch>
+				</Box>
+			</Router>
+			<Footer className={classes.footer}/>
+		</div>
+  	);
 }
